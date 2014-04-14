@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.9.9
+FROM dafire/baseimage-docker:latest
 
 ENV HOME /root
 
