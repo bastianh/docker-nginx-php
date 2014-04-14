@@ -11,6 +11,10 @@ RUN apt-get update
 RUN apt-get install -y vim curl wget build-essential python-software-properties
 RUN add-apt-repository -y ppa:ondrej/php5
 RUN add-apt-repository -y ppa:nginx/stable
+RUN add-apt-repository -y ppa:mapnik/boost
+RUN wget -O - http://dl.hhvm.com/conf/hhvm.gpg.key | sudo apt-key add -
+RUN echo deb http://dl.hhvm.com/ubuntu precise main | sudo tee /etc/apt/sources.list.d/hhvm.list
+
 RUN apt-get update
 RUN apt-get install -y php5-cli php5-fpm php5-mysql php5-pgsql php5-sqlite php5-curl\
 		       php5-gd php5-mcrypt php5-intl php5-imap php5-tidy
@@ -19,6 +23,8 @@ RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php5/fpm/php.ini
 RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php5/cli/php.ini
 
 RUN apt-get install -y nginx
+
+RUN apt-get install -y hhvm
 
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf
